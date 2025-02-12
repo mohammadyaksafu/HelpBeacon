@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:helpbeacon/CustomCarouel.dart';
-import 'package:helpbeacon/widgets/custom_appbar.dart';
+import 'package:helpbeacon/widgets/home_widgets/custom_appbar.dart';
+import 'package:helpbeacon/widgets/home_widgets/emergency.dart';
 import 'dart:math';
 
 class HomeScreen extends StatefulWidget {
@@ -15,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   getRandomQuote() {
     Random random = Random();
     setState(() {
-      qIdx = random.nextInt(6);
+      qIdx = random.nextInt(10);
     });
   }
 
@@ -35,9 +36,28 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               CustomAppBar(
                 quoteIndex: qIdx,
-                onTap: getRandomQuote,
+                onTap: () {
+                  getRandomQuote();
+                }
               ),
-              CoustomCarouel(),
+              Expanded(
+                child: ListView(
+                shrinkWrap: true,
+                children: [
+                   CustomCarousel(),
+                   Padding(
+                     padding: const EdgeInsets.all(8.0),
+                     child: Text("Emergency ", style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      
+                     ),),
+                   ),
+                   Emergency(),
+                ],
+                )
+              )
+             
             ],
           ),
         ),
